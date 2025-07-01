@@ -10,10 +10,10 @@
       padding: 0;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
-    .balloons {
+    .balloons, canvas {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -42,14 +42,8 @@
     }
 
     @keyframes float {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
     }
 
     .card {
@@ -96,12 +90,47 @@
       color: #999;
       font-size: 0.9em;
     }
+
+    .slideshow {
+      margin-top: 30px;
+    }
+
+    .slideshow img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: fadeSlide 1s ease-in-out;
+    }
+
+    @keyframes fadeSlide {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .music-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1em;
+      z-index: 10;
+    }
+
+    .music-btn:hover {
+      background: #e91e63;
+    }
   </style>
 </head>
 <body>
 
+  <canvas id="confetti"></canvas>
+
   <div class="balloons">
-    <!-- Multiple balloons with random left positions -->
     <div class="balloon" style="left: 10%; background: #FF6F61;"></div>
     <div class="balloon" style="left: 25%; background: #FFD54F;"></div>
     <div class="balloon" style="left: 40%; background: #4DD0E1;"></div>
@@ -111,13 +140,84 @@
 
   <div class="card">
     <h1>🎉 Happy Birthday Deepak! 🎂</h1>
-    <h2>Celebrating 27 Amazing Years</h2>
+    <h2>Celebrating 27 Wonderful Years</h2>
     <div class="cake">🎂 🎈 🎁 🎊</div>
-    <p>Wishing you a day filled with love, laughter, and unforgettable moments.<br>
-    May your 27th birthday be as wonderful as you are!</p>
-    <p>Cheers to many more exciting adventures ahead!</p>
+    <p>Wishing you all the joy and happiness in the world.<br>
+    May your day be filled with smiles, surprises, and lots of love.</p>
+
+    <!-- Slideshow -->
+    <div class="slideshow">
+      <img id="slideshow-img" src="https://via.placeholder.com/400x250.png?text=Deepak+1" alt="Slideshow">
+    </div>
+
+    <!-- Music Button -->
+    <button class="music-btn" onclick="playMusic()">▶️ Play Birthday Song</button>
+
     <div class="footer">With love, from your family 💖</div>
   </div>
 
+  <!-- Audio -->
+  <audio id="birthdayMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    // Confetti animation
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let pieces = [], number = 100;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < number; i++) {
+      pieces.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 6 + 4,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+        velocity: Math.random() * 3 + 2
+      });
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pieces.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.y += p.velocity;
+        if (p.y > canvas.height) p.y = -10;
+      });
+      requestAnimationFrame(drawConfetti);
+    }
+
+    drawConfetti();
+
+    // Slideshow
+    const images = [
+      "https://via.placeholder.com/400x250.png?text=Deepak+1",
+      "https://via.placeholder.com/400x250.png?text=Deepak+2",
+      "https://via.placeholder.com/400x250.png?text=Deepak+3"
+    ];
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      document.getElementById("slideshow-img").src = images[index];
+    }, 3000);
+
+    // Music player
+    function playMusic() {
+      const audio = document.getElementById("birthdayMusic");
+      audio.play();
+    }
+  </script>
 </body>
 </html>
