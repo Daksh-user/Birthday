@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Deepak!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+      overflow: hidden;
+    }
+
+    .balloons {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 60px;
+      height: 80px;
+      background: red;
+      border-radius: 50% 50% 45% 45%;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 50px;
+      background: #555;
+      bottom: -50px;
+      left: 50%;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 100px auto;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      padding: 30px;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95);}
+      to { opacity: 1; transform: scale(1);}
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff4081;
+    }
+
+    h2 {
+      color: #333;
+      font-weight: normal;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    .cake {
+      font-size: 50px;
+      margin-top: 20px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      color: #999;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="balloons">
+    <!-- Multiple balloons with random left positions -->
+    <div class="balloon" style="left: 10%; background: #FF6F61;"></div>
+    <div class="balloon" style="left: 25%; background: #FFD54F;"></div>
+    <div class="balloon" style="left: 40%; background: #4DD0E1;"></div>
+    <div class="balloon" style="left: 60%; background: #BA68C8;"></div>
+    <div class="balloon" style="left: 75%; background: #81C784;"></div>
+  </div>
+
+  <div class="card">
+    <h1>🎉 Happy Birthday Deepak! 🎂</h1>
+    <h2>Celebrating 27 Amazing Years</h2>
+    <div class="cake">🎂 🎈 🎁 🎊</div>
+    <p>Wishing you a day filled with love, laughter, and unforgettable moments.<br>
+    May your 27th birthday be as wonderful as you are!</p>
+    <p>Cheers to many more exciting adventures ahead!</p>
+    <div class="footer">With love, from your family 💖</div>
+  </div>
+
+</body>
+</html>
